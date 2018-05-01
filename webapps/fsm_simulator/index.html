@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="fsm, finite-state machine, regex, regular expression, simulation, software, graphviz" />
+    <meta name="description" content="FSM simulator is a Web application for step-by-step visual simulation of finite state machines which are defined with regular expressions." />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Simulador de Automatas</title>
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
+    <link rel="stylesheet" href="styles/fsm_simulator.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <h1>Simulador de automatas  </h1>
+       <p>Marcos Zárraga Flores</p>
+       <P>Allan Jordi Montaño Pozos </P>
+
+        <p>
+         Proyecto Final <br>
+        Matematicas computacionales
+        </p>
+      </div>
+    </div>
+
+<div>
+  
+
+    <div class="content">
+      <div class="container controls">
+        <div class="row-fluid">
+          <div>
+            <h3> &#x2460; Crear un automata </h3>
+
+              <ul class="nav nav-tabs">
+                <li id="regexinput" class="active">Introducir Expresión</li>
+            </ul>
+             <div class="tab-content">
+              <div class="tab-pane active" id="tab1">
+                <div class="instructions">
+                  <p>
+                    Escribir una expresión regular en el siguiente inputo o da clic en  <strong>Generar Expresión Aleatoria</strong> para generar una expresión regular de forma aleatoria.
+                    Despues da clic en <strong>crear automata</strong> para poder el diagrama gráfico que es generado a partir de la expresión.
+                  </p>
+              
+                </div>
+
+                <p>
+                  <button id="generateRegex" class="btn">Generar Expresión Aleatoria</button>
+                </p>
+
+                <p>
+                  <div class="control-group">
+                    <input id="regex" type="text" class="input-block-level" placeholder="Escribe la tuya...." spellcheck="false">
+                  </div>
+                </p>
+
+                <p>
+                  <div class="control-group">
+                    <label for="automatonType">Seleccionar el tipo de Automata: </label>
+                    <select id="automatonType">
+                      <option value="NFA" default="true">NFA</option>
+                      <option value="DFA">DFA</option>
+                    </select>
+                  </div>
+                </p>
+              </div>
+          
+
+            <p>
+              <button id="createAutomaton" class="btn" disabled>Crear automata</button>
+            </p>
+
+          </div>
+
+          <div >
+            <h3> &#x2461; Simular Automata </h3>
+
+            <div class="instructions">
+              <p>
+               Escribir una cada en el input siguiente o dar clic en  <strong>cadena aleatoria</strong>, <strong>Cadena valida</strong> o <strong>cadena invalida</strong> para que se genere una cadena aleatoria con el alfabeto que se esta definido en el punto número 1.
+              </p>
+              <p>
+                Ahora dar clic en  <strong>Inicio</strong> para comenzar a leer un caracter de la cadena <strong>leer toda la cadena</strong> para leer toda los elementos faltantes de la cadena.
+                Dar clic en  <strong>atras</strong> para leer el elemento anterior <strong>restablecer</strong> para comenzar de nuevo y comenzar a leer toda la cadena.
+              </p>
+              <p>
+                El campo resalta el simbolo siguiente.
+              </p>
+            </div>
+
+            <p>
+              <button id="generateRandomString" class="btn" disabled> Cadena aleatoria </button>
+              <button id="generateRandomAcceptableString" class="btn" disabled> Cadena valida </button>
+              <button id="generateRandomUnacceptableString" class="btn" disabled> Cadena invalida </button>
+            </p>
+
+            <p>
+              <div class="control-group">
+                <input id="inputString" type="text" class="input-block-level"  disabled spellcheck="false">
+              </div>
+            </p>
+
+            <p>
+              <button id="startStop" class="btn" disabled>
+                Inicio
+              </button>
+              <button id="inputFirst" class="btn" disabled>
+                <i class="icon-fast-backward"></i>
+                Restablecer
+              </button>
+              <button id="inputPrevious" class="btn" disabled>
+                <i class="icon-backward"></i>
+                Atras
+              </button>
+              <button id="inputNext" class="btn" disabled>
+                <i class="icon-forward"></i>
+                Leer siguiente
+              </button>
+              <button id="inputLast" class="btn" disabled>
+                <i class="icon-fast-forward"></i>
+                Leer toda la cadena
+              </button>
+            </p>
+
+            <p id="inputError" class="text-error">
+            </p>
+
+          </div>
+        </div>
+
+        <hr />
+      </div>
+
+      <div class="container graph">
+        <h3> &#x2462; Diagrama de transición  </h3>
+               <p>
+          Al automata del punto número 1 esta representado a continuación con todos los estados y sus correspondientes transiciones. <br>
+          El estado actual del diagrama esta representado con el color:  <span class="currentState">&nbsp;&nbsp;&nbsp;</span>.
+        </p>
+
+        <div id="automatonGraph"> </div>
+      </div>
+
+   
+</div>
+
+           
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="http://mdaines.github.io/viz.js/bower_components/viz.js/viz.js"></script>
+    <script src="../../lib/browser/noam.js"></script>
+    <script src="scripts/fsm_simulator.js"></script>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36346935-1']);
+      _gaq.push(['_setDomainName', 'auto']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <script type="text/javascript">
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '5162c171613f5d6f68000001');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>
